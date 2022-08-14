@@ -1,11 +1,11 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import Routing from './routes/Routing';
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App"></div>
-    </BrowserRouter>
+    <div>
+      <Routing />
+    </div>
   );
 }
 
