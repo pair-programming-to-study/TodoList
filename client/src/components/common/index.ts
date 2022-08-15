@@ -1,2 +1,3 @@
-export { default as AuthTemplate } from './AuthTemplate';
-export { default as Button } from './Button';
+export * from './AuthTemplate';
+export * from './Button';
+export * from './Input';
