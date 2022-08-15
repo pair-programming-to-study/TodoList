@@ -8,13 +8,13 @@ interface ButtonStyledProps {
   variant?: 'primary' | 'secondary';
 }
 
-interface Props
+export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     ButtonStyledProps {
   children: ReactNode;
 }
 
-function Button({ children, ...rest }: Props) {
+function Button({ children, ...rest }: ButtonProps) {
   return <StyledButton {...rest}>{children}</StyledButton>;
 }
 

@@ -1,7 +1,7 @@
 import { Button } from 'components/common';
 import React from 'react';
 
-interface Props {
+export interface SignUpFormProps {
   email: string;
   password: string;
   passwordConfirm: string;
@@ -21,7 +21,7 @@ function SignUpForm({
   onSignUp,
   password,
   isDisabled,
-}: Props) {
+}: SignUpFormProps) {
   return (
     <form onSubmit={onSignUp}>
       <input

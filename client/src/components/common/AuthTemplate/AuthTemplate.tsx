@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
 
-interface Props {
+export interface AuthTemplateProps {
   children: ReactNode;
   title: string;
 }
 
-function AuthTemplate({ children, title }: Props) {
+function AuthTemplate({ children, title }: AuthTemplateProps) {
   return (
     <div>
       <h1>{title}</h1>

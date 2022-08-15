@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Props {
+export interface SignInFormProps {
   email: string;
   password: string;
   onChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -14,7 +14,7 @@ function SignInForm({
   onChangeEmail,
   onChangePassword,
   onSignIn,
-}: Props) {
+}: SignInFormProps) {
   return (
     <form onSubmit={onSignIn}>
       <input type="email" value={email} onChange={onChangeEmail} />
