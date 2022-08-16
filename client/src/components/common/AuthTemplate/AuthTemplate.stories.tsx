@@ -12,7 +12,7 @@ export default {
     },
   },
   argTypes: {
-    title: { type: '' },
+    title: { type: 'string' },
   },
 } as Meta;
 
