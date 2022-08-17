@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { SERVER_URL } from 'utils/constants';
-import userStorage from 'utils/userStorage';
+import { SERVER_URL } from 'libs/utils/constants';
+import userStorage from 'libs/utils/userStorage';
 
 const client = axios.create({});
 

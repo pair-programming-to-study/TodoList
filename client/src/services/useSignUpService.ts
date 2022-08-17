@@ -1,13 +1,13 @@
 import { useInput } from 'hooks';
 import React, { useMemo } from 'react';
-import { signUp } from 'apis/signUp';
+import { signUp } from 'libs/apis/signUp';
 import Path from 'routes/Path';
-import userStorage from 'utils/userStorage';
+import userStorage from 'libs/utils/userStorage';
 import {
   checkEmailRegex,
   checkPasswordAndPasswordConfirm,
   checkPasswordLength,
-} from 'utils/validation';
+} from 'libs/utils/validation';
 
 export default function useSignUpService() {
   const [email, onChangeEmail] = useInput();

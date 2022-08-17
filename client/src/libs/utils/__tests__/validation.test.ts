@@ -2,7 +2,7 @@ import {
   checkEmailRegex,
   checkPasswordAndPasswordConfirm,
   checkPasswordLength,
-} from 'utils/validation';
+} from 'libs/utils/validation';
 
 describe('회원가입의 유효성을 검사하는 테스트입니다.', () => {
   describe('이메일의 정규식을 테스트합니다', () => {

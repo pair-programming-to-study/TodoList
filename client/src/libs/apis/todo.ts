@@ -1,6 +1,6 @@
 import client from './client';
-import { Todo, UpdateTodoRequest } from 'types/todo';
-import { SERVER_URL } from 'utils/constants';
+import { Todo, UpdateTodoRequest } from 'libs/types/todo';
+import { SERVER_URL } from 'libs/utils/constants';
 
 export const createTodo = async (todo: string) => {
   const response = await client.post<Todo>(`${SERVER_URL}/todos`, { todo });
