@@ -13,7 +13,7 @@ export default function useSignInService() {
     try {
       const { access_token } = await signIn({ email, password });
       userStorage.set(access_token);
-      window.location.replace(Path.Todo);
+      window.location.replace(Path.TODO);
     } catch (e) {
       console.log(e);
       console.log('로그인에 실패했습니다.');

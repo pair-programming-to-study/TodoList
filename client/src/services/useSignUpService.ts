@@ -40,7 +40,7 @@ export default function useSignUpService() {
     try {
       const { access_token } = await signUp({ email, password });
       userStorage.set(access_token);
-      window.location.replace(Path.Todo);
+      window.location.replace(Path.TODO);
     } catch (e) {
       console.log(e);
       console.log('회원가입에 실패했습니다');

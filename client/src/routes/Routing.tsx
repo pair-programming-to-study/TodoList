@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Path from './Path';
 
@@ -8,11 +8,13 @@ const TodoPage = lazy(() => import('pages/TodoPage'));
 
 function Routing() {
   return (
-    <Routes>
-      <Route path={Path.SignIn} element={<SignInPage />} />
-      <Route path={Path.SignUp} element={<SignUpPage />} />
-      <Route path={Path.Todo} element={<TodoPage />} />
-    </Routes>
+    <Suspense fallback={<></>}>
+      <Routes>
+        <Route path={Path.SIGNIN} element={<SignInPage />} />
+        <Route path={Path.SIGNUP} element={<SignUpPage />} />
+        <Route path={Path.TODO} element={<TodoPage />} />
+      </Routes>
+    </Suspense>
   );
 }
 
