@@ -42,6 +42,13 @@ function TodoList({
             </>
           ) : (
             <>
+              <input
+                type="checkbox"
+                checked={isCompleted}
+                onChange={() =>
+                  onUpdateTodo({ id, todo, isCompleted: !isCompleted })
+                }
+              />
               <span>{todo}</span>
               <ButtonGroup>
                 <Button onClick={() => onModifyMode(id)}>수정</Button>
