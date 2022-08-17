@@ -1,22 +1,43 @@
-import { getTodos } from 'apis/todo';
+import TodoForm from 'components/todo/TodoForm';
 import TodoList from 'components/todo/TodoList';
-import React, { useEffect, useState } from 'react';
-import { Todo } from 'types/todo';
+import useTodoService from 'services/useTodoService';
 
 function TodoContainer() {
-  const [todos, setTodos] = useState<Todo[]>();
-
-  useEffect(() => {
-    const loadTodo = async () => {
-      const response = await getTodos();
-      setTodos(response);
-    };
-    loadTodo();
-  }, []);
+  const {
+    todos,
+    todoText,
+    onChangeTodoText,
+    newTodoText,
+    onChangeNewTodoText,
+    isOpenForm,
+    setIsOpenForm,
+    selectedTodo,
+    setSelectedTodo,
+    onModifyMode,
+    onCreateTodo,
+    onUpdateTodo,
+    onDeleteTodo,
+  } = useTodoService();
 
   return (
     <>
-      <TodoList todos={todos} />
+      <TodoList
+        todos={todos}
+        todoText={todoText}
+        isOpenForm={isOpenForm}
+        setIsOpenForm={setIsOpenForm}
+        selectedTodo={selectedTodo}
+        setSelectedTodo={setSelectedTodo}
+        onModifyMode={onModifyMode}
+        onChangeTodoText={onChangeTodoText}
+        onUpdateTodo={onUpdateTodo}
+        onDeleteTodo={onDeleteTodo}
+      />
+      <TodoForm
+        newTodoText={newTodoText}
+        onChangeNewTodoText={onChangeNewTodoText}
+        onCreateTodo={onCreateTodo}
+      />
     </>
   );
 }
