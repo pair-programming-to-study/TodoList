@@ -48,7 +48,8 @@ const StyledButton = styled.button<ButtonStyledProps>`
   }}
 
   &:disabled {
-    background: red;
+    background: #e1dbdb;
+    cursor: not-allowed;
   }
 `;
 
