@@ -1,57 +1,71 @@
 import { Button, Input } from 'components/common';
 import React from 'react';
 import styled from 'styled-components';
-import { Todo, UpdateTodoRequest } from 'libs/types/todo';
+import { Todo } from 'libs/types/todo';
+import { UpdateTodo } from 'services/useTodoService';
 
 interface TodoListProps {
-  todos: Todo[] | undefined;
+  todos: Todo[];
   todoText: string;
-  isOpenForm: boolean;
-  setIsOpenForm: (isOpenForm: boolean) => void;
-  selectedTodo: number | undefined;
-  setSelectedTodo: (id: number) => void;
-  onModifyMode: (id: number) => void;
   onChangeTodoText: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onUpdateTodo: ({ id, todo, isCompleted }: UpdateTodoRequest) => void;
+  onUpdateTodo: ({ id, isCompleted }: UpdateTodo) => void;
   onDeleteTodo: (id: number) => void;
+  isSelectedTodoId: number | null;
+  onChangeSelectedTodoId: (todoId: number | null) => void;
+  setTodoText: (text: string) => void;
 }
 
 function TodoList({
   todos,
   todoText,
-  isOpenForm,
-  setIsOpenForm,
-  selectedTodo,
-  setSelectedTodo,
-  onModifyMode,
   onChangeTodoText,
   onUpdateTodo,
   onDeleteTodo,
+  isSelectedTodoId,
+  onChangeSelectedTodoId,
+  setTodoText,
 }: TodoListProps) {
   return (
     <List>
-      {todos?.map(({ id, todo, isCompleted }: Todo) => (
+      {todos.map(({ id, todo, isCompleted }) => (
         <Item key={id}>
-          {isOpenForm && id === selectedTodo ? (
+          <Input
+            type="checkbox"
+            checked={isCompleted}
+            onChange={() => onUpdateTodo({ id, isCompleted: !isCompleted })}
+          />
+          {isSelectedTodoId === id ? (
             <>
               <Input value={todoText} onChange={onChangeTodoText} />
-              <Button onClick={() => onUpdateTodo({ id, todo, isCompleted })}>
-                수정
-              </Button>
-              <Button onClick={() => setIsOpenForm(false)}>취소</Button>
+              <ButtonGroup>
+                <Button
+                  onClick={() => {
+                    onUpdateTodo({ id, isCompleted });
+                    onChangeSelectedTodoId(null);
+                  }}
+                >
+                  수정완료
+                </Button>
+                <Button
+                  variant="secondary"
+                  onClick={() => onChangeSelectedTodoId(null)}
+                >
+                  취소
+                </Button>
+              </ButtonGroup>
             </>
           ) : (
             <>
-              <input
-                type="checkbox"
-                checked={isCompleted}
-                onChange={() =>
-                  onUpdateTodo({ id, todo, isCompleted: !isCompleted })
-                }
-              />
               <span>{todo}</span>
               <ButtonGroup>
-                <Button onClick={() => onModifyMode(id)}>수정</Button>
+                <Button
+                  onClick={() => {
+                    onChangeSelectedTodoId(id);
+                    setTodoText(todo);
+                  }}
+                >
+                  수정
+                </Button>
                 <Button variant="secondary" onClick={() => onDeleteTodo(id)}>
                   삭제
                 </Button>
@@ -84,4 +98,7 @@ const Item = styled.li`
 const ButtonGroup = styled.div`
   display: flex;
   justify-content: flex-end;
+  button {
+    margin-right: 6px;
+  }
 `;
