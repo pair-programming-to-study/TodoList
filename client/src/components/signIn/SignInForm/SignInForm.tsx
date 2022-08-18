@@ -1,8 +1,5 @@
 import { Button, Input } from 'components/common';
-import DividerLine from 'components/common/DriverLine/DriverLine';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Path from 'routes/Path';
 import styled from 'styled-components';
 
 export interface SignInFormProps {
@@ -42,13 +39,6 @@ function SignInForm({
       <Button width={300} height={40} variant="primary" type="submit">
         로그인
       </Button>
-
-      <DividerLine width="100%" color="#d4d2cf" mt={10} mb={30} />
-
-      <Text>
-        아직 회원이 아니신가요?
-        <StyledLink to={Path.SIGNUP}>회원가입 하기</StyledLink>
-      </Text>
     </FormWrapper>
   );
 }
@@ -64,12 +54,4 @@ const FormWrapper = styled.form`
   }
 `;
 
-const Text = styled.span`
-  font-size: 14px;
-`;
-
-const StyledLink = styled(Link)`
-  color: #4848e9;
-  margin-left: 6px;
-`;
 export default SignInForm;
