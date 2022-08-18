@@ -1,55 +1,50 @@
 import { useInput } from 'hooks';
-import { createTodo, deleteTodo, getTodos, updateTodo } from 'libs/apis/todo';
-import { Todo, UpdateTodoRequest } from 'libs/types/todo';
+import { createTodo } from 'libs/apis/createTodo';
+import { deleteTodo } from 'libs/apis/deleteTodo';
+import { getTodos } from 'libs/apis/getTodos';
+import { updateTodo, UpdateTodoRequest } from 'libs/apis/updateTodo';
+import { Todo } from 'libs/types/todo';
 import { useEffect, useState } from 'react';
 
-export default function useTodoService() {
-  const [todoText, onChangeTodoText] = useInput();
-  const [newTodoText, onChangeNewTodoText, setNewTodoText] = useInput();
-  const [todos, setTodos] = useState<Todo[]>();
+export type UpdateTodo = Pick<UpdateTodoRequest, 'id' | 'isCompleted'>;
 
-  const loadTodo = async () => {
-    const response = await getTodos();
-    setTodos(response);
-  };
+export default function useTodoService() {
+  const [todoText, onChangeTodoText, setTodoText] = useInput();
+  const [newTodoText, onChangeNewTodoText, setNewTodoText] = useInput();
+  const [todos, setTodos] = useState<Todo[]>([]);
+
   useEffect(() => {
+    const loadTodo = async () => {
+      const todos = await getTodos();
+      setTodos(todos);
+    };
+
     loadTodo();
   }, []);
 
-  const [isOpenForm, setIsOpenForm] = useState(false);
-  const [selectedTodo, setSelectedTodo] = useState<number>();
-  const onModifyMode = (id: number) => {
-    setSelectedTodo(id);
-    setIsOpenForm(!isOpenForm);
-  };
-
   const onCreateTodo = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await createTodo(newTodoText);
-    loadTodo();
+    const response = await createTodo({ todo: newTodoText });
+    setTodos((prev) => prev.concat(response));
     setNewTodoText('');
   };
 
-  const onUpdateTodo = async ({ id, todo, isCompleted }: UpdateTodoRequest) => {
-    await updateTodo({ id, todo, isCompleted });
-    loadTodo();
+  const onUpdateTodo = async ({ id, isCompleted }: UpdateTodo) => {
+    const response = await updateTodo({ id, todo: todoText, isCompleted });
+    setTodos((prev) => prev.map((todo) => (todo.id === id ? response : todo)));
   };
 
   const onDeleteTodo = async (id: number) => {
     await deleteTodo(id);
-    loadTodo();
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
 
   return {
     todoText,
     newTodoText,
+    setTodoText,
     onChangeTodoText,
     onChangeNewTodoText,
-    isOpenForm,
-    setIsOpenForm,
-    selectedTodo,
-    setSelectedTodo,
-    onModifyMode,
     onCreateTodo,
     onUpdateTodo,
     onDeleteTodo,
