@@ -2,30 +2,24 @@ import { Button, Input } from 'components/common';
 import React from 'react';
 import styled from 'styled-components';
 
-interface TodoFormProps {
+interface Props {
   newTodoText: string;
   onChangeNewTodoText: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCreateTodo: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-function TodoForm({
-  newTodoText,
-  onChangeNewTodoText,
-  onCreateTodo,
-}: TodoFormProps) {
+function TodoForm({ newTodoText, onChangeNewTodoText, onCreateTodo }: Props) {
   return (
-    <>
-      <Form onSubmit={onCreateTodo}>
-        <FormTitleInput
-          type="text"
-          value={newTodoText}
-          height={40}
-          placeholder="내용을 입력해주세요"
-          onChange={onChangeNewTodoText}
-        />
-        <FormButton type="submit">추가</FormButton>
-      </Form>
-    </>
+    <Form onSubmit={onCreateTodo}>
+      <FormTitleInput
+        type="text"
+        value={newTodoText}
+        height={40}
+        placeholder="내용을 입력해주세요"
+        onChange={onChangeNewTodoText}
+      />
+      <FormButton type="submit">추가</FormButton>
+    </Form>
   );
 }
 export default TodoForm;
