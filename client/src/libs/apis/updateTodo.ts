@@ -1,5 +1,5 @@
+import axios from 'axios';
 import { SERVER_URL } from 'libs/utils/constants';
-import client from './client';
 
 export interface UpdateTodoRequest {
   id: number;
@@ -19,7 +19,7 @@ export const updateTodo = async ({
   todo,
   isCompleted,
 }: UpdateTodoRequest) => {
-  const response = await client.put<GetTodosResponse>(
+  const response = await axios.put<GetTodosResponse>(
     `${SERVER_URL}/todos/${id}`,
     {
       todo,

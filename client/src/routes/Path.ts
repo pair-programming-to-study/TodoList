@@ -1,6 +1,4 @@
 const Path = {
-  SIGNIN: '/',
-  SIGNUP: '/signup',
   TODO: '/todo',
 } as const;
 
