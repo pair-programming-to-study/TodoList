@@ -1,13 +1,28 @@
 import TodoContainer from 'containers/todo/TodoContainer';
-import React from 'react';
+import e from 'express';
+import { createTodo } from 'libs/apis/createTodo';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 function TodoPage() {
+  const [todo, setTodo] = useState("안녕하세요") //useState 는 함수이름
+  
+  const onChangeValue = (event: any) => {   //event 뒤에 타입이름인데 any로해도 상관 x
+    setTodo(event.target.value);
+  };
+
+  const onCreateTodo = (e:any) => {
+    const response = createTodo({todo:todo});
+    console.log(response);
+  }
+
   return (
     <Container>
       <Inner>
         <TodoH1>Todo</TodoH1>
-        <TodoContainer />
+        {todo}
+        <input value={todo} onChange={onChangeValue}/>
+        <button onClick={onCreateTodo}>버튼</button>
       </Inner>
     </Container>
   );
